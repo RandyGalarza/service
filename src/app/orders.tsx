@@ -1,0 +1,17 @@
+import { router } from 'expo-router';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+
+const orders = [
+  { id: '#MC-2048', title: 'Pintura de living', professional: 'Camila León', status: 'En camino', time: '12 min', color: '#E7F6F3' },
+  { id: '#MC-1987', title: 'Revisión eléctrica', professional: 'Daniela Soto', status: 'Completado', time: 'Ayer', color: '#FFF2D8' },
+];
+
+export default function OrdersScreen() {
+  return <ThemedView style={styles.screen}><SafeAreaView edges={['top']} style={styles.safe}><ScrollView contentContainerStyle={styles.content}><ThemedText themeColor="textSecondary" style={styles.eyebrow}>MANOCERCA / ACTIVIDAD</ThemedText><ThemedText style={styles.title}>Mis pedidos</ThemedText><ThemedText themeColor="textSecondary" style={styles.subtitle}>Sigue tus servicios y revisa trabajos anteriores.</ThemedText><View style={styles.tabs}><ThemedText style={styles.activeTab}>Activos</ThemedText><ThemedText themeColor="textSecondary">Historial</ThemedText></View>{orders.map((order) => <Pressable key={order.id} onPress={() => router.push('/map' as never)} style={styles.card}><View style={[styles.statusIcon, { backgroundColor: order.color }]}><ThemedText style={styles.icon}>⌁</ThemedText></View><View style={styles.copy}><View style={styles.row}><ThemedText style={styles.orderTitle}>{order.title}</ThemedText><ThemedText style={styles.orderId}>{order.id}</ThemedText></View><ThemedText themeColor="textSecondary" style={styles.professional}>{order.professional}</ThemedText><View style={styles.row}><ThemedText style={styles.status}>{order.status}</ThemedText><ThemedText themeColor="textSecondary" style={styles.time}>{order.time}</ThemedText></View></View><ThemedText style={styles.arrow}>›</ThemedText></Pressable>)}</ScrollView></SafeAreaView></ThemedView>;
+}
+
+const styles = StyleSheet.create({ screen: { flex: 1, backgroundColor: '#F7F8FC' }, safe: { flex: 1 }, content: { padding: 20, paddingBottom: 130 }, eyebrow: { fontSize: 10, letterSpacing: 1.4, fontWeight: '800', marginTop: 8 }, title: { fontSize: 28, fontWeight: '800', color: '#272940', marginTop: 7 }, subtitle: { fontSize: 13, marginTop: 6, lineHeight: 19 }, tabs: { flexDirection: 'row', gap: 26, borderBottomWidth: 1, borderBottomColor: '#E7EAF0', marginTop: 25, marginBottom: 17, paddingBottom: 11 }, activeTab: { color: '#0B7C78', fontWeight: '800', borderBottomWidth: 2, borderBottomColor: '#0B7C78', paddingBottom: 11, marginBottom: -12 }, card: { backgroundColor: '#FFF', borderWidth: 1, borderColor: '#E8EBF2', borderRadius: 16, padding: 14, flexDirection: 'row', alignItems: 'center', marginBottom: 11 }, statusIcon: { width: 48, height: 48, borderRadius: 14, alignItems: 'center', justifyContent: 'center' }, icon: { color: '#0B7C78', fontSize: 23 }, copy: { flex: 1, paddingLeft: 12 }, row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }, orderTitle: { color: '#2C3044', fontSize: 13, fontWeight: '800', flex: 1 }, orderId: { color: '#99A0AF', fontSize: 9 }, professional: { fontSize: 10, marginTop: 4 }, status: { color: '#0B7C78', fontSize: 10, fontWeight: '800', marginTop: 8 }, time: { fontSize: 10, marginTop: 8 }, arrow: { color: '#0B7C78', fontSize: 25, paddingLeft: 8 }, });
